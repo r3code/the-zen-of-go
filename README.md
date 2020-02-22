@@ -6,56 +6,56 @@
 
 ## Каждный пакет служит только одной цели
 
-A well designed Go package provides a single idea, a set of related behaviours. A good Go package starts by choosing a good name. Think of your package’s name as an elevator pitch to describe what it provides, using just one word.
+Хорошо разработанный пакет Go предоставляет единую идею, набор связанных поведений. Хороший пакет Go начинается с выбора хорошего имени. Думайте о названии вашего пакета как о краткой презентации (" 	презентация в лифте"), чтобы описать то, что он предоставляет, используя только одно слово.
 
 
 ## Обрабатывайте ошибки явно
 
-Robust programs are composed from pieces that handle the failure cases before they pat themselves on the back. The verbosity of if err != nil { return err } is outweighed by the value of deliberately handling each failure condition at the point at which they occur. Panic and recover are not exceptions, they aren’t intended to be used that way.
+Надежные программы составлены из частей, которые обрабатывают случаи отказа, до того как они сами себя поблагодарят. Детальность `if err! = nil {return err}` перевешивается значимостью преднамеренной обработки каждого условия отказа в точке, в которой они возникают. Паника и восстановление это не исключения, они не предназначены для такого использования.
 
 
 ## Возвращайте в начале, а не городите множество вложений 
 
-Every time you indent you add another precondition to the programmer’s stack consuming one of the 7 ±2 slots in their short term memory. Avoid control flow that requires deep indentation. Rather than nesting deeply, keep the success path to the left using guard clauses.
+Каждый раз, когда вы делаете отступ, вы добавляете еще одно предварительное условие в свой стек программиста, занимая один из 7 ± 2 слотов в своей кратковременной памяти. Избегайте потока управления, который требует множества вложений. Вместо того, чтобы делать вложения, выдерживайте маршрут успешного завершения ближе к левому краю, используя сторожевые условия.
 
 
 ## Оставьте вопросы конкурентного исполнения вызывающей стороне
 
-Let the caller choose if they want to run your library or function asynchronously, don’t force it on them. If your library uses concurrency it should do so transparently.
+Позвольте вызывающей стороне выбрать, надо ли они запускать вашу библиотеку или функцию асинхронно, не навязывайте это им. Если ваша библиотека использует конкурентное исполнение, она должна делать это прозрачно.
 
 
 ## Пееред запуском горутины, знай когда она остановится
 
-Goroutines own resources; locks, variables, memory, etc. The sure fire way to free those resources is to stop the owning goroutine.
+Горутины владеют ресурсами; блокировками, переменными, памятью и т.д. Самый надежный способ освободить эти ресурсы - перестать владеть горутиной.
 
 
 ## Избегайте хранения состояния на уровнн пакета 
 
-Seek to be explicit, reduce coupling, and spooky action at a distance by providing the dependencies a type needs as fields on that type rather than using package variables.
+Стремитесь быть явными, уменьшать связность и пугающее действие на расстоянии, предоставляя зависимости, которые нужны типу, как поля этого типа, а не используя переменные пакета.
 
 
 ## Простота имеет значение
 
-Simplicity is not a synonym for unsophisticated. Simple doesn’t mean crude, it means readable and maintainable. When it is possible to choose, defer to the simpler solution.
+Простота не является синонимом простого. Простое не означает грубое, оно означает читабельность и поддерживаемость. Когда есть возможность выбирать, переходите к более простому решению.
 
-## Write tests to lock in the behaviour of your package’s API
+## Напишите тесты, чтобы зафиксировать поведение API вашего пакета
 
-Test first or test later, if you shoot for 100% test coverage or are happy with less, regardless your package’s API is your contract with its users. Tests are the guarantees that those contracts are written in. Make sure you test for the behaviour that users can observe and rely on.
+Тестируйте сначала или тестируйте позже, если вы начелены на 100% тестовое покрытие или довольны меньшим, независимо от того, API вашего пакета является вашим контрактом с его пользователями. Тесты являются гарантией того, что эти контракты написаны. Убедитесь, что вы тестируете поведение, которое пользователи могут наблюдать и на которое они могут положиться.
 
 
 ## Если вы думаете, что это медленно, сначала докажите это с помощью теста производительности
 
-So many crimes against maintainability are committed in the name of performance. Optimisation tears down abstractions, exposes internals, and couples tightly. If you’re choosing to shoulder that cost, ensure it is done for good reason.
+Так много преступлений против поддерживаемости совершаются во имя производительности. Оптимизация разрушает абстракции, обнажает внутренности и сильно связывает. Если вы решите взять на себя эти расходы, убедитесь, что они сделаны по уважительной причине.
 
 
 ## Умеренность - это добродетель
 
-Use goroutines, channels, locks, interfaces, embedding, in moderation.
+Используйте процедуры, каналы, блокировки, интерфейсы и встраивание умеренно.
 
 
-## Способность к поддержке играет роль
+## Поддерживаемость играет роль
 
-Clarity, readability, simplicity, are all aspects of maintainability. Can the thing you worked hard to build be maintained after you’re gone? What can you do today to make it easier for those that come after you?
+Четкость, удобочитаемость, простота - все это аспекты поддерживаемости. Можно ли сохранить то, над чем ты работал, чтобы сохранить его после ухода? Что вы можете сделать сегодня, чтобы облегчить жизнь тем, кто придет за вами?
 
 
 
